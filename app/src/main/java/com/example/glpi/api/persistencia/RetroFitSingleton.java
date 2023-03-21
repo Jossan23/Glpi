@@ -1,6 +1,4 @@
-package com.example.glpi.persistencia;
-
-import com.example.glpi.R;
+package com.example.glpi.api.persistencia;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -15,7 +13,6 @@ public class RetroFitSingleton {
         retroFitInstance = new Retrofit.Builder().baseUrl("http://192.168.1.22/apirest.php/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
     }
 
 
@@ -32,6 +29,5 @@ public class RetroFitSingleton {
     public Retrofit getRetroFit() {
         return retroFitInstance;
     }
-
 
 }

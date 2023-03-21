@@ -1,6 +1,5 @@
 package com.example.glpi;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -9,12 +8,11 @@ import android.widget.TextView;
 
 import com.example.glpi.api.Base64Encoder;
 import com.example.glpi.api.get.InitSession;
-import com.example.glpi.interfaces.JsonPlaceHolderApi;
-import com.example.glpi.persistencia.RetroFitSingleton;
+import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
+import com.example.glpi.api.persistencia.RetroFitSingleton;
 
 import java.io.IOException;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -120,20 +118,23 @@ public class MainActivity extends AppCompatActivity {
     private void autenticarUsuario(String username, String password){
         String authorization = Base64Encoder.base64encode(username + ":" + password);
 
-        Call<InitSession> call = querys.getSecret("Basic " + authorization.trim());
+        Call<InitSession> call = querys.getUser("Basic " + authorization.trim());
 
         call.enqueue(new Callback<InitSession>() {
             @Override
             public void onResponse(Call<InitSession> call, Response<InitSession> response) {
                 if(response.isSuccessful()){
-                    System.out.println(response.code());
+                    System.out.println(response.body().getSessionToken());
                     System.out.println("Biennn");
                 }else{
                     String errorMessage;
                     try {
-                        errorMessage = response.errorBody().string();
-                    } catch (IOException e) {
+                        errorMessage = response.errorBody().string() + "     asd";
+                        System.out.println(errorMessage);
+                        System.out.println("Algo falla");
+                    } catch (Exception e) {
                         System.out.println(e);
+                        System.out.println("MAL");
                     }
                 }
             }
@@ -142,9 +143,8 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<InitSession> call, Throwable t) {
 
                 System.out.println(t.getMessage());
-
+                System.out.println("Ni te conecta parguela");
             }
         });
-
     }
 }
