@@ -7,10 +7,15 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.glpi.api.get.InitSession;
+import com.example.glpi.api.get.Ticket;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
+
+import java.io.IOException;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,7 +25,7 @@ import retrofit2.Retrofit;
 public class LoginActivity extends AppCompatActivity {
 
 
-    private static String authToken;
+    String authToken;
 
     Retrofit retrofit = RetroFitSingleton.getInstance().getRetroFit();
 
@@ -43,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
         autenticarUsuario("glpi","glpi");
 
+        getTicket();
     }
 
 
@@ -62,7 +68,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     authToken = response.body().getSessionToken();
 
-                    //Toast.makeText(.this, "Usuario autenticado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Usuario autenticado", Toast.LENGTH_SHORT).show();
+
 
                     System.out.println(authToken);
 
@@ -71,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     String errorMessage;
                     try {
-                        errorMessage = response.errorBody().string() + "     asd";
+                        errorMessage = response.errorBody().string() + "asd";
                         System.out.println(errorMessage);
                         System.out.println("Algo falla");
                     } catch (Exception e) {
@@ -86,6 +93,43 @@ public class LoginActivity extends AppCompatActivity {
 
                 System.out.println(t.getMessage());
                 System.out.println("Ni te conecta parguela");
+            }
+        });
+    }
+
+
+    public void getTicket(){
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        System.out.println(authToken + "este es mi token");
+        Call <List<Ticket>> tickets = querys.getTicket("uot3s1kt0jghd8v0713oitnfdj");
+
+        tickets.enqueue(new Callback<List<Ticket>>() {
+            @Override
+            public void onResponse(Call<List<Ticket>> call, Response<List<Ticket>> response) {
+
+                if(response.isSuccessful()){
+                    System.out.println(response.body());
+                }else{
+                    try {
+                        System.out.println(response.errorBody().string() + "b,kjasbd,fkjbasdhfb");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Ticket>> call, Throwable t) {
+
+                System.out.println(t.getMessage());
+
             }
         });
     }
