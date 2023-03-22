@@ -1,7 +1,9 @@
 package com.example.glpi.api.persistencia;
 
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.HTTP;
 
 public class RetroFitSingleton {
 

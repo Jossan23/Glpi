@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Base64;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         autenticarUsuario("glpi","glpi");
 
         getTicket();
+
+        setTicket();
     }
 
 
@@ -100,22 +103,29 @@ public class LoginActivity extends AppCompatActivity {
 
     public void getTicket(){
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-
         System.out.println(authToken + "este es mi token");
-        Call <List<Ticket>> tickets = querys.getTicket("uot3s1kt0jghd8v0713oitnfdj");
+        Call <List<Ticket>> tickets = querys.getTicket("sqemlv2vjjn52ck65m3qtuqnn0");
 
         tickets.enqueue(new Callback<List<Ticket>>() {
             @Override
             public void onResponse(Call<List<Ticket>> call, Response<List<Ticket>> response) {
 
                 if(response.isSuccessful()){
-                    System.out.println(response.body());
+                    List<Ticket> tickets = response.body();
+
+                    for(Ticket t : tickets){
+
+
+                        System.out.println(t.getName());
+                        System.out.println(t.getContent());
+                        System.out.println(t.getStatus());
+
+                        //String contenido = t.getContent();
+                        //editTextUsuario.setText(contenido);
+                        System.out.println(t.getUrgency());
+
+                    }
+
                 }else{
                     try {
                         System.out.println(response.errorBody().string() + "b,kjasbd,fkjbasdhfb");
@@ -130,6 +140,41 @@ public class LoginActivity extends AppCompatActivity {
 
                 System.out.println(t.getMessage());
 
+            }
+        });
+    }
+
+    public void setTicket(){
+
+        Ticket ticket = new Ticket("Meter tinta a la impresora", "Contenido jejajjas", 2,1);
+
+
+        Call<Ticket>  tickets = querys.setTicket(ticket,"sqemlv2vjjn52ck65m3qtuqnn0");
+
+        tickets.enqueue(new Callback<Ticket>() {
+            @Override
+            public void onResponse(Call<Ticket> call, Response<Ticket> response) {
+
+                if(response.isSuccessful()){
+
+                    Ticket ticket = response.body();
+                    System.out.println(ticket.getName());
+
+
+                }else{
+                    try {
+                        System.out.println(response.errorBody().string());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Ticket> call, Throwable t) {
+
+                System.out.println(t.getMessage());
             }
         });
     }
