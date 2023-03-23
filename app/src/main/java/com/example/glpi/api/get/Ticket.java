@@ -1,10 +1,23 @@
 package com.example.glpi.api.get;
 
-public class Ticket {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
+public class Ticket implements Serializable {
+
+    @SerializedName("name")
+    @Expose
     public String name;
+    @SerializedName("content")
+    @Expose
     public String content;
+    @SerializedName("status")
+    @Expose
     public int status;
+    @SerializedName("urgency")
+    @Expose
     public int urgency;
 
 

@@ -2,6 +2,7 @@ package com.example.glpi.api.modelos;
 
 public class Users {
 
+
     private String username;
     private String password;
     private String authToken;

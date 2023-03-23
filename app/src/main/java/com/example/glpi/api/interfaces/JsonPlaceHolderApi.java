@@ -2,14 +2,13 @@ package com.example.glpi.api.interfaces;
 
 import com.example.glpi.api.get.InitSession;
 import com.example.glpi.api.get.Ticket;
-import com.example.glpi.api.modelos.Users;
+import com.example.glpi.api.modelos.TicketList;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -37,6 +36,6 @@ public interface JsonPlaceHolderApi {
 
     @Headers("Content-Type: application/json")
     @POST("Ticket")
-    Call<Ticket> setTicket(@Body Ticket ticket , @Query("session_token") String authToken);
+    Call<Ticket> setTicket(@Body TicketList ticketList, @Query("session_token") String authToken);
 
 }

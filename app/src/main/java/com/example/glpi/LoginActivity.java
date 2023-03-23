@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Base64;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,10 +12,15 @@ import android.widget.Toast;
 import com.example.glpi.api.get.InitSession;
 import com.example.glpi.api.get.Ticket;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
+import com.example.glpi.api.modelos.TicketList;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -147,9 +151,11 @@ public class LoginActivity extends AppCompatActivity {
     public void setTicket(){
 
         Ticket ticket = new Ticket("Meter tinta a la impresora", "Contenido jejajjas", 2,1);
+        List<Ticket> ticketList= new ArrayList<Ticket>();
+        ticketList.add(ticket);
+        TicketList ticketListClass = new TicketList(ticketList);
 
-
-        Call<Ticket>  tickets = querys.setTicket(ticket,"sqemlv2vjjn52ck65m3qtuqnn0");
+        Call<Ticket>  tickets = querys.setTicket(ticketListClass,"sqemlv2vjjn52ck65m3qtuqnn0");
 
         tickets.enqueue(new Callback<Ticket>() {
             @Override
@@ -157,8 +163,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(response.isSuccessful()){
 
-                    Ticket ticket = response.body();
-                    System.out.println(ticket.getName());
+
+                    System.out.println("Sucessful");
+                    //Ticket ticket = response.body();
+                    //System.out.println(ticket.getName());
 
 
                 }else{
