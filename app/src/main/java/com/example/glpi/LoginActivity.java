@@ -3,6 +3,7 @@ package com.example.glpi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 import android.widget.Button;
@@ -56,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //setTicket();
 
-        getActiveProfile();
+        //getActiveProfile();
     }
 
 
@@ -78,8 +79,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     Toast.makeText(LoginActivity.this, "Usuario autenticado", Toast.LENGTH_SHORT).show();
 
-
-                    System.out.println(authToken);
+                    Intent intent = new Intent(_context, MainActivity.class);
+                    intent.putExtra("session_token", authToken);
+                    startActivity(intent);
 
 
                     //System.out.println("Biennn");
@@ -109,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
     public void getTicket(){
 
         System.out.println(authToken + "este es mi token");
-        Call <List<Ticket>> tickets = querys.getTicket("sqemlv2vjjn52ck65m3qtuqnn0");
+        Call <List<Ticket>> tickets = querys.getTicket("+");
 
         tickets.enqueue(new Callback<List<Ticket>>() {
             @Override
