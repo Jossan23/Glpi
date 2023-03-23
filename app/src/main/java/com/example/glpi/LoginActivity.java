@@ -12,15 +12,14 @@ import android.widget.Toast;
 import com.example.glpi.api.get.InitSession;
 import com.example.glpi.api.get.Ticket;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
+import com.example.glpi.api.modelos.ProfileData;
+import com.example.glpi.api.modelos.ProfileList;
 import com.example.glpi.api.modelos.TicketList;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,9 +52,11 @@ public class LoginActivity extends AppCompatActivity {
 
         autenticarUsuario("glpi","glpi");
 
-        getTicket();
+        //getTicket();
 
-        setTicket();
+        //setTicket();
+
+        getActiveProfile();
     }
 
 
@@ -186,4 +187,39 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    public void getActiveProfile(){
+
+        Call<ProfileList> profileCall = querys.getActiveProfile("vhcftl8trmo0hhbmiis31mi39p");
+
+        profileCall.enqueue(new Callback<ProfileList>() {
+            @Override
+            public void onResponse(Call<ProfileList> call, Response<ProfileList> response) {
+                if(response.isSuccessful()){
+
+                    System.out.println(response.body().getData().getName());
+
+                }else{
+                    try {
+                        System.out.println(response.errorBody().string());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileList> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+
+
+
+
+
+
+    }
+
 }
