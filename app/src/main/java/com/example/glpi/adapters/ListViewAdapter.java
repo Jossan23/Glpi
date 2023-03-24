@@ -1,6 +1,7 @@
 package com.example.glpi.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,10 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
     public void onBindViewHolder(@NonNull ListViewAdapter.ViewHolder holder, int position) {
 
         holder.textViewUrgency.setText(String.valueOf(ticketList.get(position).getUrgency()));
+        if(ticketList.get(position).getUrgency() < 2){
+            holder.textViewUrgency.setTextColor(Color.rgb(0,250,0));
+        }
+
         holder.textViewIncidenciaName.setText(ticketList.get(position).getName());
         holder.textViewIncidenciaContent.setText(ticketList.get(position).getContent());
         holder.textViewState.setText(String.valueOf(ticketList.get(position).getStatus()));
