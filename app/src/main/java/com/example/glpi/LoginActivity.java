@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.example.glpi.api.get.InitSession;
 import com.example.glpi.api.get.Ticket;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
-import com.example.glpi.api.modelos.ProfileData;
 import com.example.glpi.api.modelos.ProfileList;
 import com.example.glpi.api.modelos.TicketList;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
@@ -30,13 +29,14 @@ import retrofit2.Retrofit;
 public class LoginActivity extends AppCompatActivity {
 
 
-    String authToken;
+    private String authToken;
 
-    Retrofit retrofit = RetroFitSingleton.getInstance().getRetroFit();
+    private final Retrofit retrofit = RetroFitSingleton.getInstance().getRetroFit();
 
-    JsonPlaceHolderApi querys = retrofit.create(JsonPlaceHolderApi.class);
+    private final JsonPlaceHolderApi querys = retrofit.create(JsonPlaceHolderApi.class);
 
-    private EditText editTextUsuario, editTextPassword;
+    private EditText editTextUsuario;
+    private EditText editTextPassword;
     private Button botonLogin;
     private Context _context;
 
@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void autenticarUsuario(String username, String password){
+    public String autenticarUsuario(String username, String password){
 
         String base = username + ":" + password;
 
@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
 
                     authToken = response.body().getSessionToken();
+
 
                     Toast.makeText(LoginActivity.this, "Usuario autenticado", Toast.LENGTH_SHORT).show();
 
@@ -105,51 +106,10 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println("Ni te conecta parguela");
             }
         });
+        return authToken;
     }
 
 
-    public void getTicket(){
-
-        System.out.println(authToken + "este es mi token");
-        Call <List<Ticket>> tickets = querys.getTicket("+");
-
-        tickets.enqueue(new Callback<List<Ticket>>() {
-            @Override
-            public void onResponse(Call<List<Ticket>> call, Response<List<Ticket>> response) {
-
-                if(response.isSuccessful()){
-                    List<Ticket> tickets = response.body();
-
-                    for(Ticket t : tickets){
-
-
-                        System.out.println(t.getName());
-                        System.out.println(t.getContent());
-                        System.out.println(t.getStatus());
-
-                        //String contenido = t.getContent();
-                        //editTextUsuario.setText(contenido);
-                        System.out.println(t.getUrgency());
-
-                    }
-
-                }else{
-                    try {
-                        System.out.println(response.errorBody().string() + "b,kjasbd,fkjbasdhfb");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Ticket>> call, Throwable t) {
-
-                System.out.println(t.getMessage());
-
-            }
-        });
-    }
 
     public void setTicket(){
 
@@ -216,12 +176,5 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println(t.getMessage());
             }
         });
-
-
-
-
-
-
     }
-
 }
