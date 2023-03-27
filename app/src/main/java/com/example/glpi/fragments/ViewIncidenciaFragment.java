@@ -1,11 +1,15 @@
 package com.example.glpi.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +21,7 @@ import android.view.ViewGroup;
 import com.example.glpi.R;
 import com.example.glpi.adapters.ListViewAdapter;
 import com.example.glpi.api.get.Ticket;
+import com.example.glpi.api.interfaces.DetailTicketsInterface;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
 
@@ -30,7 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 
-public class ViewIncidenciaFragment extends Fragment {
+public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInterface {
 
     private final Retrofit retrofit = RetroFitSingleton.getInstance().getRetroFit();
 
@@ -74,47 +79,12 @@ public class ViewIncidenciaFragment extends Fragment {
         context = getActivity();
         recycView = view.findViewById(R.id.recyclerView);
         recycView.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new ListViewAdapter(context , null);
+        adapter = new ListViewAdapter(context , ticketList, this);
         recycView.setAdapter(adapter);
         getTicket();
     }
 
-    /*
-    public void getTicketSync(){
 
-
-        Call<List<Ticket>> ticketsCall = querys.getTicket(authKey);
-
-        try {
-            Response<List<Ticket>> response = ticketsCall.execute();
-
-            if(response.isSuccessful()){
-                ticketList = response.body();
-
-                for(Ticket t : ticketList){
-
-                    System.out.println(t.getName());
-                    System.out.println(t.getContent());
-                    System.out.println(t.getStatus());
-
-                    //String contenido = t.getContent();
-                    //editTextUsuario.setText(contenido);
-                    System.out.println(t.getUrgency());
-
-                }
-            }else{
-                System.out.println(response.errorBody().string());
-            }
-
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-     */
 
 
     public void getTicket(){
@@ -165,5 +135,58 @@ public class ViewIncidenciaFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onItemClick(int position) {
+
+        System.out.println(position);
+        Fragment newFragment = new DetailViewFragment();
+
+        FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, newFragment)
+                .addToBackStack(null)
+                .commit();
+
+    }
+
+
+    /*
+    public void getTicketSync(){
+
+
+        Call<List<Ticket>> ticketsCall = querys.getTicket(authKey);
+
+        try {
+            Response<List<Ticket>> response = ticketsCall.execute();
+
+            if(response.isSuccessful()){
+                ticketList = response.body();
+
+                for(Ticket t : ticketList){
+
+                    System.out.println(t.getName());
+                    System.out.println(t.getContent());
+                    System.out.println(t.getStatus());
+
+                    //String contenido = t.getContent();
+                    //editTextUsuario.setText(contenido);
+                    System.out.println(t.getUrgency());
+
+                }
+            }else{
+                System.out.println(response.errorBody().string());
+            }
+
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+     */
 
 }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.glpi.R;
 import com.example.glpi.api.get.Ticket;
+import com.example.glpi.api.interfaces.DetailTicketsInterface;
 
 import java.util.List;
 
@@ -22,10 +23,12 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
 
     private List<Ticket> ticketList;
     private Context context;
+    private final DetailTicketsInterface detailTicketsInterface;
 
-    public ListViewAdapter(Context context, List<Ticket> ticketList) {
+    public ListViewAdapter(Context context, List<Ticket> ticketList,DetailTicketsInterface detailTicketsInterface) {
         this.context = context;
         this.ticketList = ticketList;
+        this.detailTicketsInterface = detailTicketsInterface;
     }
 
     @NonNull
@@ -35,15 +38,20 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_view,parent,false);
 
-        return new ViewHolder(view);
+        return new ViewHolder(view, detailTicketsInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListViewAdapter.ViewHolder holder, int position) {
 
         holder.textViewUrgency.setText(String.valueOf(ticketList.get(position).getUrgency()));
-        if(ticketList.get(position).getUrgency() < 2){
+        if(ticketList.get(position).getUrgency() <= 2){
             holder.textViewUrgency.setTextColor(Color.rgb(0,250,0));
+        } else if (ticketList.get(position).getUrgency() == 3) {
+            holder.textViewUrgency.setTextColor(Color.rgb(255,170,0));
+        }else{
+            holder.textViewUrgency.setTextColor(Color.rgb(255,0,0));
+
         }
 
         holder.textViewIncidenciaName.setText(ticketList.get(position).getName());
@@ -67,11 +75,11 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
         this.notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView textViewState,textViewIncidenciaContent,textViewIncidenciaName,textViewUrgency;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, DetailTicketsInterface detailTicketsInterface) {
             super(itemView);
 
             textViewUrgency = itemView.findViewById(R.id.textViewUrgency);
@@ -79,6 +87,20 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
             textViewIncidenciaContent = itemView.findViewById(R.id.textViewIncidenciaContent);
             textViewState = itemView.findViewById(R.id.textViewState);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(detailTicketsInterface != null){
+                        int position = getAdapterPosition();
+
+                        if(position != RecyclerView.NO_POSITION){
+                            detailTicketsInterface.onItemClick(position);
+                        }
+                    }
+                }
+            });
+
         }
     }
+
 }
