@@ -32,6 +32,12 @@ public class Ticket implements Serializable {
     }
 
 
+    public Ticket(String name, String content, int urgency){
+        this.name = name;
+        this.content = content;
+        this.urgency = urgency;
+    }
+
     public Ticket(String name, String content, int status, int urgency) {
         this.name = name;
         this.content = content;

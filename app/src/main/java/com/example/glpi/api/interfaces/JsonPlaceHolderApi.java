@@ -37,7 +37,7 @@ public interface JsonPlaceHolderApi {
 
     @Headers("Content-Type: application/json")
     @POST("Ticket")
-    Call<Ticket> setTicket(@Body TicketList ticketList, @Query("session_token") String authToken);
+    Call<List<Ticket>> setTicket(@Body TicketList ticket, @Query("session_token") String authToken);
 
     @Headers("Content-Type: application/json")
     @GET("getActiveProfile")

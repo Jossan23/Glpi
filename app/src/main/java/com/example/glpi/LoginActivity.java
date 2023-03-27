@@ -111,44 +111,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    public void setTicket(){
 
-        Ticket ticket = new Ticket("Meter tinta a la impresora", "Contenido jejajjas", 2,1);
-        List<Ticket> ticketList= new ArrayList<Ticket>();
-        ticketList.add(ticket);
-        TicketList ticketListClass = new TicketList(ticketList);
-
-        Call<Ticket>  tickets = querys.setTicket(ticketListClass,"sqemlv2vjjn52ck65m3qtuqnn0");
-
-        tickets.enqueue(new Callback<Ticket>() {
-            @Override
-            public void onResponse(Call<Ticket> call, Response<Ticket> response) {
-
-                if(response.isSuccessful()){
-
-
-                    System.out.println("Sucessful");
-                    //Ticket ticket = response.body();
-                    //System.out.println(ticket.getName());
-
-
-                }else{
-                    try {
-                        System.out.println(response.errorBody().string());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Ticket> call, Throwable t) {
-
-                System.out.println(t.getMessage());
-            }
-        });
-    }
 
 
     public void getActiveProfile(){

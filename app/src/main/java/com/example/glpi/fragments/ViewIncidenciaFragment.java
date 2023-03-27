@@ -131,7 +131,7 @@ public class ViewIncidenciaFragment extends Fragment {
                     ticketList = response.body();
                     adapter.setData(ticketList);
 
-
+                    /*
                     for(Ticket t : ticketList){
 
                         System.out.println(t.getName());
@@ -143,6 +143,8 @@ public class ViewIncidenciaFragment extends Fragment {
                         System.out.println(t.getUrgency());
 
                     }
+
+                     */
 
                     System.out.println("he terminado");
 

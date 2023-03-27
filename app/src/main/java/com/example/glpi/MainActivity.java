@@ -29,8 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private Context _context;
+    private AddIncidenciaFragment fragmentoIncidencia;
+    private ViewIncidenciaFragment fragmentoView;
     private String authKey;
     private List<Ticket> ticketList;
+    Bundle extraFragment;
     private final Retrofit retrofit = RetroFitSingleton.getInstance().getRetroFit();
 
     private final JsonPlaceHolderApi querys = retrofit.create(JsonPlaceHolderApi.class);
@@ -53,24 +56,36 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        changeFragment(new AddIncidenciaFragment());
+        extraFragment = new Bundle();
+        extraFragment.putString("session_token", authKey);
+
+        fragmentoIncidencia = new AddIncidenciaFragment();
+        fragmentoIncidencia.setArguments(extraFragment);
+        changeFragment(fragmentoIncidencia);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             switch(item.getItemId()){
 
                 case R.id.crearIncidenciaMenu:
-                    changeFragment(new AddIncidenciaFragment());
+                    extraFragment = new Bundle();
+                    extraFragment.putString("session_token", authKey);
+
+                    fragmentoIncidencia = new AddIncidenciaFragment();
+                    fragmentoIncidencia.setArguments(extraFragment);
+
+                    changeFragment(fragmentoIncidencia);
+
                     break;
 
                 case R.id.verIncidenciasMenu:
-                    Bundle extraFragment = new Bundle();
+                    extraFragment = new Bundle();
                     extraFragment.putString("session_token", authKey);
 
-                    ViewIncidenciaFragment fragmentView = new ViewIncidenciaFragment();
-                    fragmentView.setArguments(extraFragment);
+                    fragmentoView = new ViewIncidenciaFragment();
+                    fragmentoView.setArguments(extraFragment);
 
-                    changeFragment(fragmentView);
+                    changeFragment(fragmentoView);
                     break;
 
             }
