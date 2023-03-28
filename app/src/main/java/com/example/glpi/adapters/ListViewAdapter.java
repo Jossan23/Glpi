@@ -6,11 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.glpi.R;
@@ -23,6 +20,8 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
 
     private List<Ticket> ticketList;
     private Context context;
+    private int stateNumber;
+    private int urgencyNumber;
     private final DetailTicketsInterface detailTicketsInterface;
 
     public ListViewAdapter(Context context, List<Ticket> ticketList,DetailTicketsInterface detailTicketsInterface) {
@@ -44,20 +43,51 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ListViewAdapter.ViewHolder holder, int position) {
 
-        holder.textViewUrgency.setText(String.valueOf(ticketList.get(position).getUrgency()));
-        if(ticketList.get(position).getUrgency() <= 2){
-            holder.textViewUrgency.setTextColor(Color.rgb(0,250,0));
-        } else if (ticketList.get(position).getUrgency() == 3) {
-            holder.textViewUrgency.setTextColor(Color.rgb(255,170,0));
-        }else{
-            holder.textViewUrgency.setTextColor(Color.rgb(255,0,0));
+        urgencyNumber = ticketList.get(position).getUrgency();
 
+        holder.textViewUrgency.setText(String.valueOf(urgencyNumber));
+
+        switch(urgencyNumber){
+            case 1:
+            case 2:
+                holder.textViewUrgency.setTextColor(Color.rgb(0,255,0));
+                break;
+            case 3:
+            case 4:
+                holder.textViewUrgency.setTextColor(Color.rgb(255,170,0));
+                break;
+            case 5:
+                holder.textViewUrgency.setTextColor(Color.rgb(255,0,0));
+                break;
         }
+
+
+        stateNumber = ticketList.get(position).getStatus();
 
         holder.textViewIncidenciaName.setText(ticketList.get(position).getName());
         holder.textViewIncidenciaContent.setText(ticketList.get(position).getContent());
-        holder.textViewState.setText(String.valueOf(ticketList.get(position).getStatus()));
+        //holder.textViewState.setText(String.valueOf(ticketList.get(position).getStatus()));
 
+       switch(stateNumber){
+           case 1:
+            holder.textViewState.setText("Incidencia creada");
+            break;
+           case 2:
+               holder.textViewState.setText("Asignada");
+               break;
+           case 3:
+               holder.textViewState.setText("Planificada");
+               break;
+           case 4:
+               holder.textViewState.setText("En espera");
+               break;
+           case 5:
+               holder.textViewState.setText("Resuelto");
+               break;
+           case 6:
+               holder.textViewState.setText("Cerrado");
+               break;
+        }
     }
 
     @Override

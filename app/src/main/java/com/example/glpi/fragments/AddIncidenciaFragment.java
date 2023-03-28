@@ -74,7 +74,7 @@ public class AddIncidenciaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_incidencia, container, false);
         context = getActivity();
         authToken = getArguments().getString("session_token");
-        System.out.println(authToken + "esta en el fragment de crear incidencia");
+        //System.out.println(authToken + "esta en el fragment de crear incidencia");
 
         editTextTituloIncidencia = view.findViewById(R.id.editTextTituloIncidencia);
         editTextDescripcionIncidencia = view.findViewById(R.id.editTextDescripcionIncidencia);
@@ -96,18 +96,17 @@ public class AddIncidenciaFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if(editTextTituloIncidencia.getText().toString() == null ){
+                if(editTextTituloIncidencia.getText().toString().isEmpty()){
 
                     Toast.makeText(context, "Introduce un titulo", Toast.LENGTH_SHORT).show();
-                }else if(editTextDescripcionIncidencia.toString() == null){
+                }else if(editTextDescripcionIncidencia.getText().toString().isEmpty()){
                     Toast.makeText(context, "Introduce una descripcion", Toast.LENGTH_SHORT).show();
 
-                }else if(autoCompleteTextViewUrgency.getText().toString() == null){
+                }else if(autoCompleteTextViewUrgency.getText().toString().isEmpty()){
                     Toast.makeText(context, "Introduce la urgencia", Toast.LENGTH_SHORT).show();
                 }else{
                     setTicket();
                 }
-
             }
         });
 
@@ -118,7 +117,7 @@ public class AddIncidenciaFragment extends Fragment {
     public void setTicket(){
 
 
-        Ticket ticket = new Ticket(editTextTituloIncidencia.getText().toString(),editTextDescripcionIncidencia.getText().toString(),urgencia);
+        Ticket ticket = new Ticket(editTextTituloIncidencia.getText().toString(),editTextDescripcionIncidencia.getText().toString(),2,urgencia);
         List<Ticket> ticketList= new ArrayList<Ticket>();
         ticketList.add(ticket);
         TicketList ticketListClass = new TicketList(ticketList);

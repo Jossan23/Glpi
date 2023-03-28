@@ -65,7 +65,7 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
         // Inflate the layout for this fragment
 
         authKey = getArguments().getString("session_token");
-        System.out.println(authKey + "esta en un fragment");
+        //System.out.println(authKey + "esta en un fragment");
 
         view = inflater.inflate(R.layout.fragment_view_incidencia,container,false);
 
