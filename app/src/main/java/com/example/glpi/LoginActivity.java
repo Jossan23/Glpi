@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -51,20 +52,28 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         botonLogin = findViewById(R.id.botonLogin);
 
-        autenticarUsuario("normal","normal");
 
-        //getTicket();
+        //autenticarUsuario("glpi","glpi");
 
-        //setTicket();
 
-        //getActiveProfile();
+        botonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(editTextUsuario.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty()){
+
+                    Toast.makeText(_context, "Introduce tu usuario y contraseña", Toast.LENGTH_SHORT).show();
+                }else{
+                    autenticarUsuario(editTextUsuario.getText().toString(),editTextPassword.getText().toString());
+                }
+
+            }
+        });
     }
-
 
     public String autenticarUsuario(String username, String password){
 
         String base = username + ":" + password;
-
 
         String authorization = Base64.encodeToString(base.getBytes(), Base64.NO_WRAP);
 
@@ -89,9 +98,8 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     String errorMessage;
                     try {
-                        errorMessage = response.errorBody().string() + "asd";
-                        System.out.println(errorMessage);
-                        System.out.println("Algo falla");
+                        errorMessage = response.errorBody().string() + "en loginActivity";
+                        Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         System.out.println(e);
                         System.out.println("MAL");
@@ -103,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<InitSession> call, Throwable t) {
 
                 System.out.println(t.getMessage());
-                System.out.println("Ni te conecta parguela");
+                Toast.makeText(LoginActivity.this, "Fallo de conexión, vuelve a intentarlo", Toast.LENGTH_SHORT).show();
             }
         });
         return authToken;
