@@ -14,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface JsonPlaceHolderApi {
@@ -42,5 +43,9 @@ public interface JsonPlaceHolderApi {
     @Headers("Content-Type: application/json")
     @GET("getActiveProfile")
     Call<ProfileList> getActiveProfile(@Query("session_token") String authorization);
+
+    @Headers("Content-Type: application/json")
+    @GET("User/{user_id}/")
+    Call<ProfileData> getTicketUser(@Path ("user_id") String userID, @Query("session_token") String authorization);
 
 }

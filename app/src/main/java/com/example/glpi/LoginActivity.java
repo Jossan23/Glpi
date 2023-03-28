@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         botonLogin = findViewById(R.id.botonLogin);
 
-        autenticarUsuario("glpi","glpi");
+        autenticarUsuario("normal","normal");
 
         //getTicket();
 
@@ -109,11 +109,6 @@ public class LoginActivity extends AppCompatActivity {
         return authToken;
     }
 
-
-
-
-
-
     public void getActiveProfile(){
 
         Call<ProfileList> profileCall = querys.getActiveProfile("vhcftl8trmo0hhbmiis31mi39p");
@@ -140,4 +135,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 }

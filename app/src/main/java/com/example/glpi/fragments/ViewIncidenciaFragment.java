@@ -23,9 +23,11 @@ import com.example.glpi.adapters.ListViewAdapter;
 import com.example.glpi.api.get.Ticket;
 import com.example.glpi.api.interfaces.DetailTicketsInterface;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
+import com.example.glpi.api.modelos.ProfileList;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
 import kotlinx.coroutines.scheduling.TasksKt;
@@ -85,8 +87,6 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
     }
 
 
-
-
     public void getTicket(){
 
         //System.out.println(authToken + "este es mi token");
@@ -101,20 +101,22 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
                     ticketList = response.body();
                     adapter.setData(ticketList);
 
+
                     /*
                     for(Ticket t : ticketList){
 
+                        System.out.println(t.getId());
                         System.out.println(t.getName());
                         System.out.println(t.getContent());
                         System.out.println(t.getStatus());
-
-                        //String contenido = t.getContent();
-                        //editTextUsuario.setText(contenido);
+                        System.out.println(t.getUserCreatorTicker());
                         System.out.println(t.getUrgency());
 
                     }
 
                      */
+
+
 
                     System.out.println("he terminado");
 
@@ -141,6 +143,10 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
 
         System.out.println(position);
         Fragment newFragment = new DetailViewFragment();
+        Bundle bundle= new Bundle();
+        bundle.putSerializable("Ticket", ticketList.get(position));
+        bundle.putString("authToken", authKey);
+        newFragment.setArguments(bundle);
 
         FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
 
@@ -150,6 +156,11 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
                 .commit();
 
     }
+
+
+
+
+
 
 
     /*
