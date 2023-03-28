@@ -42,7 +42,7 @@ public class AddIncidenciaFragment extends Fragment {
     private final JsonPlaceHolderApi querys = retrofit.create(JsonPlaceHolderApi.class);
     private String authToken;
 
-    String[] urgency = {"Muy poco urgente", "Poco urgente", "Urgencia media","Urgente", "Muy urgente"};
+    String[] urgency = {"Muy poco urgente", "Poco urgente", "Urgencia media","Urgencia alta", "Muy urgente"};
     AutoCompleteTextView autoCompleteTextViewUrgency;
     ArrayAdapter<String> adapterUrgency;
     Button buttonAddIncidencia;
@@ -117,7 +117,7 @@ public class AddIncidenciaFragment extends Fragment {
     public void setTicket(){
 
 
-        Ticket ticket = new Ticket(editTextTituloIncidencia.getText().toString(),editTextDescripcionIncidencia.getText().toString(),2,urgencia);
+        Ticket ticket = new Ticket(editTextTituloIncidencia.getText().toString(),editTextDescripcionIncidencia.getText().toString(),1,urgencia);
         List<Ticket> ticketList= new ArrayList<Ticket>();
         ticketList.add(ticket);
         TicketList ticketListClass = new TicketList(ticketList);
@@ -139,6 +139,7 @@ public class AddIncidenciaFragment extends Fragment {
                 }else{
                     try {
                         System.out.println(response.errorBody().string());
+                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -149,7 +150,7 @@ public class AddIncidenciaFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Ticket>> call, Throwable t) {
 
-                System.out.println(t.getMessage());
+                Toast.makeText(context, "Ha ocurrido un error al cargar todos los datos", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.glpi.R;
 import com.example.glpi.api.get.Ticket;
@@ -142,11 +143,12 @@ public class DetailViewFragment extends Fragment {
             public void onResponse(Call<ProfileData> call, Response<ProfileData> response) {
                 if(response.isSuccessful()){
 
-                    textViewUserDetail.setText(response.body().getName());
+                    textViewUserDetail.setText("Usuario: " + response.body().getName());
 
                 }else{
                     try {
                         System.out.println(response.errorBody().string());
+
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
