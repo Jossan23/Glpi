@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Ticket implements Serializable {
     @SerializedName("id")
     @Expose
-    public String id;
+    public int id;
     @SerializedName("name")
     @Expose
     public String name;
@@ -24,6 +24,21 @@ public class Ticket implements Serializable {
     @SerializedName("users_id_recipient")
     @Expose
     public String userCreatorTicker;
+
+    public Ticket(int id, int status) {
+        this.id = id;
+        this.status = status;
+    }
+
+    public Ticket(int status) {
+        this.status = status;
+    }
+
+    public Ticket(int id, int urgency, int status) {
+        this.id = id;
+        this.urgency = urgency;
+        this.status = status;
+    }
 
     @Override
     public String toString() {
@@ -45,15 +60,15 @@ public class Ticket implements Serializable {
         this.userCreatorTicker = userCreatorTicker;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Ticket(String id, String name, String content, int status, int urgency) {
+    public Ticket(int id, String name, String content, int status, int urgency) {
         this.id = id;
         this.name = name;
         this.content = content;

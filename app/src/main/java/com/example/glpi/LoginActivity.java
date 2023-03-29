@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         botonLogin = findViewById(R.id.botonLogin);
 
 
-        //autenticarUsuario("glpi","glpi");
+        autenticarUsuario("glpi","glpi");
 
 
         botonLogin.setOnClickListener(new View.OnClickListener() {
