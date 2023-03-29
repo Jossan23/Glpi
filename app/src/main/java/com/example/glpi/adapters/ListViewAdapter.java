@@ -76,10 +76,10 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
                holder.textViewState.setText("Asignada");
                break;
            case 3:
-               holder.textViewState.setText("Planificada");
+               holder.textViewState.setText("Pendiente");
                break;
            case 4:
-               holder.textViewState.setText("En espera");
+               holder.textViewState.setText("Planificada");
                break;
            case 5:
                holder.textViewState.setText("Resuelto");

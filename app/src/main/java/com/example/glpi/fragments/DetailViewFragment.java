@@ -29,6 +29,7 @@ import com.example.glpi.api.persistencia.RetroFitSingleton;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -52,7 +53,7 @@ public class DetailViewFragment extends Fragment {
 
     private final JsonPlaceHolderApi querys = retrofit.create(JsonPlaceHolderApi.class);
 
-    private String[] statusDetail = {"Nuevo", "En curso", "En espera","Resuelto", "Cerrado"};
+    private String[] statusDetail = {"Nuevo", "En curso", "En espera (pendiente)","En espera (programado)","Resuelto", "Cerrado"};
 
 
     public DetailViewFragment() {
@@ -97,6 +98,10 @@ public class DetailViewFragment extends Fragment {
         textViewContentDetail.setText(ticket.getContent());
 
         status = ticket.getStatus();
+
+
+        autoCompleteStatusDetail.setText(statusDetail[status -1]);
+
 
         switch(status){
             case 1:
