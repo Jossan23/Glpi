@@ -31,11 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddIncidenciaFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class AddIncidenciaFragment extends Fragment {
 
     private final Retrofit retrofit = RetroFitSingleton.getInstance().getRetroFit();
@@ -51,7 +47,7 @@ public class AddIncidenciaFragment extends Fragment {
     Context context;
 
     public AddIncidenciaFragment() {
-        // Required empty public constructor
+        // Requiere un constructor vacío
     }
 
     public static AddIncidenciaFragment newInstance() {

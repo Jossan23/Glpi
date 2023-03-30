@@ -51,7 +51,7 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
 
 
     public ViewIncidenciaFragment() {
-        // Required empty public constructor
+        // Requiere un constructor vacío
     }
 
 

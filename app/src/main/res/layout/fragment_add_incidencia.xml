@@ -29,7 +29,7 @@
         android:layout_marginEnd="50dp"
         android:ems="10"
         android:scrollbars="vertical"
-        android:maxLength="70"
+        android:maxLength="55"
         android:hint="Titulo de la incidencia"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -129,7 +129,6 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
                     }
                 }
             });
-
         }
     }
 
