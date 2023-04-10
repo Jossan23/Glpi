@@ -67,6 +67,8 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
 
         holder.textViewIncidenciaName.setText(ticketList.get(position).getName());
         holder.textViewIncidenciaContent.setText(ticketList.get(position).getContent());
+
+
         //holder.textViewState.setText(String.valueOf(ticketList.get(position).getStatus()));
 
         stateNumber = ticketList.get(position).getStatus();

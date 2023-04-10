@@ -230,14 +230,7 @@ public class DetailViewFragment extends Fragment {
             }
         });
 
-
-
-
-
     }
-
-
-
 
 
     public void getTicketUser(){

@@ -44,7 +44,14 @@ public class AddIncidenciaFragment extends Fragment {
     Button buttonAddIncidencia;
     private EditText editTextTituloIncidencia, editTextDescripcionIncidencia;
     int urgencia;
+    int tipo;
     Context context;
+
+    String[] type ={"Incidencia", "Solicitud"};
+
+    AutoCompleteTextView autoCompleteTextViewType;
+    ArrayAdapter<String> adapterType;
+
 
     public AddIncidenciaFragment() {
         // Requiere un constructor vacío
@@ -80,6 +87,13 @@ public class AddIncidenciaFragment extends Fragment {
         adapterUrgency = new ArrayAdapter<String>(context, R.layout.urgency_layout, urgency);
         autoCompleteTextViewUrgency.setAdapter(adapterUrgency);
 
+        autoCompleteTextViewType = view.findViewById(R.id.autoCompleteType);
+        adapterType = new ArrayAdapter<String>(context, R.layout.urgency_layout, type);
+        autoCompleteTextViewType.setAdapter(adapterType);
+
+
+
+
         autoCompleteTextViewUrgency.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -87,6 +101,15 @@ public class AddIncidenciaFragment extends Fragment {
                 System.out.println(urgencia);
             }
         });
+
+        autoCompleteTextViewType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                tipo = position +1;
+                System.out.println(tipo);
+            }
+        });
+
 
         buttonAddIncidencia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +136,7 @@ public class AddIncidenciaFragment extends Fragment {
     public void setTicket(){
 
 
-        Ticket ticket = new Ticket(editTextTituloIncidencia.getText().toString(),editTextDescripcionIncidencia.getText().toString(),1,urgencia);
+        Ticket ticket = new Ticket(editTextTituloIncidencia.getText().toString(),editTextDescripcionIncidencia.getText().toString(),1,urgencia, tipo);
         List<Ticket> ticketList= new ArrayList<Ticket>();
         ticketList.add(ticket);
         TicketList ticketListClass = new TicketList(ticketList);

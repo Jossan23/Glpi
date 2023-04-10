@@ -25,11 +25,16 @@ public class Ticket implements Serializable {
     @Expose
     public String userCreatorTicker;
 
+    @SerializedName("type")
+    public int type;
+
+
     public Ticket(int id, int urgency, int status) {
         this.id = id;
         this.urgency = urgency;
         this.status = status;
     }
+
 
     @Override
     public String toString() {
@@ -59,11 +64,12 @@ public class Ticket implements Serializable {
         this.id = id;
     }
 
-    public Ticket(String name, String content, int status, int urgency) {
+    public Ticket(String name, String content, int status, int urgency, int type) {
         this.name = name;
         this.content = content;
         this.status = status;
         this.urgency = urgency;
+        this.type = type;
     }
 
     public String getName() {
@@ -83,5 +89,9 @@ public class Ticket implements Serializable {
 
     public int getUrgency() {
         return urgency;
+    }
+
+    public int getType() {
+        return type;
     }
 }
