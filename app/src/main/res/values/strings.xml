@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GLPI</string>
+    <string name="botonLogin">Login</string>
+    <string name="contraseñaUsuario">Contraseña</string>
+    <string name="nombreUsuario">Usuario</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
