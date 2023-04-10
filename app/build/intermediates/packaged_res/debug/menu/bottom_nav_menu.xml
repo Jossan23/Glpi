@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Añadir incidencia"
+        android:id="@+id/crearIncidenciaMenu"
+        android:icon="@drawable/baseline_note_add_24"/>
+    <item android:title="Ver incidencias"
+        android:id="@+id/verIncidenciasMenu"
+        android:icon="@drawable/baseline_sticky_note_2_24"/>
+</menu>
