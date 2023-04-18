@@ -20,6 +20,7 @@ import com.example.glpi.R;
 import com.example.glpi.api.get.Ticket;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
 import com.example.glpi.api.modelos.TicketList;
+import com.example.glpi.api.persistencia.GlpiQuerys;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
 
 import java.io.IOException;
@@ -51,6 +52,7 @@ public class AddIncidenciaFragment extends Fragment {
 
     AutoCompleteTextView autoCompleteTextViewType;
     ArrayAdapter<String> adapterType;
+    private GlpiQuerys glpiQuerys = new GlpiQuerys();
 
 
     public AddIncidenciaFragment() {
@@ -120,11 +122,13 @@ public class AddIncidenciaFragment extends Fragment {
                     Toast.makeText(context, "Introduce un titulo", Toast.LENGTH_SHORT).show();
                 }else if(editTextDescripcionIncidencia.getText().toString().isEmpty()){
                     Toast.makeText(context, "Introduce una descripcion", Toast.LENGTH_SHORT).show();
-
                 }else if(autoCompleteTextViewUrgency.getText().toString().isEmpty()){
                     Toast.makeText(context, "Introduce la urgencia", Toast.LENGTH_SHORT).show();
+                }else if(autoCompleteTextViewUrgency.getText().toString().isEmpty()){
+                    Toast.makeText(context, "Introduce el tipo de ticket", Toast.LENGTH_SHORT).show();
                 }else{
-                    setTicket();
+                    glpiQuerys.setTicket(context,authToken,editTextTituloIncidencia.getText().toString(),editTextDescripcionIncidencia.getText().toString(),1,urgencia,tipo);
+
                 }
             }
         });
@@ -133,10 +137,11 @@ public class AddIncidenciaFragment extends Fragment {
     }
 
 
+    /*
     public void setTicket(){
 
 
-        Ticket ticket = new Ticket(editTextTituloIncidencia.getText().toString(),editTextDescripcionIncidencia.getText().toString(),1,urgencia, tipo);
+        Ticket ticket = new Ticket(editTextTituloIncidencia.getText().toString(),editTextDescripcionIncidencia.getText().toString(),1,urgencia,tipo);
         List<Ticket> ticketList= new ArrayList<Ticket>();
         ticketList.add(ticket);
         TicketList ticketListClass = new TicketList(ticketList);
@@ -174,5 +179,7 @@ public class AddIncidenciaFragment extends Fragment {
         });
     }
 
+
+     */
 
 }

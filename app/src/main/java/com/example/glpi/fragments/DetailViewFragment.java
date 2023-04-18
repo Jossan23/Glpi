@@ -26,6 +26,7 @@ import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
 import com.example.glpi.api.modelos.DocumentItem;
 import com.example.glpi.api.modelos.ProfileData;
 import com.example.glpi.api.modelos.TicketList;
+import com.example.glpi.api.persistencia.GlpiQuerys;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
 
 import java.io.IOException;
@@ -56,6 +57,7 @@ public class DetailViewFragment extends Fragment {
     private String[] statusDetail = {"Nuevo", "En curso(asignada)", "En curso (planificada)","En espera","Resuelto", "Cerrado"};
     private ImageView imageViewDetail;
     private int documentId;
+    private GlpiQuerys glpiQuerys = new GlpiQuerys();
 
 
     public DetailViewFragment() {
@@ -85,7 +87,7 @@ public class DetailViewFragment extends Fragment {
         context = getActivity();
 
         getTicketUser();
-        System.out.println(ticket.getId() + "asdasdasd");
+        //System.out.println(ticket.getId() + "asdasdasd");
 
         textViewUserDetail = view.findViewById(R.id.textViewUserDetail);
         textViewNameDetail = view.findViewById(R.id.textViewNameDetail);
@@ -175,14 +177,14 @@ public class DetailViewFragment extends Fragment {
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateTicketData();
+                glpiQuerys.updateTicketData(context,authToken,ticket.getId(),ticket.getUrgency(),status);
             }
         });
 
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteTicket();
+                glpiQuerys.deleteTicket(context, authToken,ticket.getId());
             }
         });
 
@@ -261,9 +263,10 @@ public class DetailViewFragment extends Fragment {
         });
     }
 
-    public void updateTicketData(){
+    /*
+    public void updateTicketData(Context context, String authToken,int id, int urgency, int status){
 
-        System.out.println(status + "en el metodo");
+        //System.out.println(status + "en el metodo");
         Ticket ticketUpdate = new Ticket(ticket.getId(),ticket.getUrgency(),status);
         List<Ticket> ticketList= new ArrayList<Ticket>();
         ticketList.add(ticketUpdate);
@@ -297,8 +300,11 @@ public class DetailViewFragment extends Fragment {
 
     }
 
+     */
 
-    public void deleteTicket(){
+    /*
+
+    public void deleteTicket(Context context, String authToken, int id){
 
         Call<ResponseBody> ticketDeleteCall = querys.deleteTicketData(ticket.getId(), authToken);
 
@@ -345,4 +351,6 @@ public class DetailViewFragment extends Fragment {
             }
         });
     }
+
+     */
 }

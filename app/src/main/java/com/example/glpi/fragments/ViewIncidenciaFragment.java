@@ -101,7 +101,6 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
                     ticketList = response.body();
                     adapter.setData(ticketList);
 
-
                     /*
                     for(Ticket t : ticketList){
 
@@ -116,10 +115,7 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
 
                      */
 
-
-
                     System.out.println("he terminado");
-
 
                 }else{
                     try {
@@ -137,6 +133,7 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
             }
         });
     }
+
 
     @Override
     public void onItemClick(int position) {
@@ -156,14 +153,12 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
                 .commit();
 
     }
+}
 
 
 
 
-
-
-
-    /*
+/*
     public void getTicketSync(){
 
 
@@ -190,8 +185,6 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
                 System.out.println(response.errorBody().string());
             }
 
-
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -199,5 +192,3 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
     }
 
      */
-
-}

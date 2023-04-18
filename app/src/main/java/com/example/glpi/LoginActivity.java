@@ -94,8 +94,9 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     String errorMessage;
                     try {
-                        errorMessage = response.errorBody().string() + "en loginActivity";
-                        Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        errorMessage = response.errorBody().string();
+                        System.out.println(errorMessage);
+                        Toast.makeText(LoginActivity.this, "Compruebe credenciales", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         System.out.println(e);
                         System.out.println("MAL");
@@ -112,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         return authToken;
     }
+
 
     public void getActiveProfile(){
 
