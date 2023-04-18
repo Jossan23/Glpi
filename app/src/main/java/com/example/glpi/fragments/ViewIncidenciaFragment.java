@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.glpi.R;
 import com.example.glpi.adapters.ListViewAdapter;
-import com.example.glpi.api.get.Ticket;
+import com.example.glpi.api.modelos.Ticket;
 import com.example.glpi.api.interfaces.DetailTicketsInterface;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
@@ -114,6 +115,7 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
 
                 }else{
                     try {
+                        Toast.makeText(context, "Error al obtener los datos de GLPI", Toast.LENGTH_SHORT).show();
                         System.out.println(response.errorBody().string() + "b,kjasbd,fkjbasdhfb");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -123,6 +125,7 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
 
             @Override
             public void onFailure(Call<List<Ticket>> call, Throwable t) {
+                Toast.makeText(context, "Error de conexión", Toast.LENGTH_SHORT).show();
                 System.out.println(t.getMessage());
 
             }

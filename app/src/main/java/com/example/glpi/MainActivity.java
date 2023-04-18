@@ -9,20 +9,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.glpi.api.get.Ticket;
+import com.example.glpi.api.modelos.Ticket;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
 import com.example.glpi.databinding.ActivityMainBinding;
 import com.example.glpi.fragments.AddIncidenciaFragment;
 import com.example.glpi.fragments.ViewIncidenciaFragment;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {

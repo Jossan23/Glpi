@@ -15,5 +15,4 @@ public class ProfileList {
         this.data = data;
     }
 
-
 }

@@ -1,7 +1,7 @@
 package com.example.glpi.api.interfaces;
 
-import com.example.glpi.api.get.InitSession;
-import com.example.glpi.api.get.Ticket;
+import com.example.glpi.api.modelos.InitSession;
+import com.example.glpi.api.modelos.Ticket;
 import com.example.glpi.api.modelos.DocumentItem;
 import com.example.glpi.api.modelos.ProfileData;
 import com.example.glpi.api.modelos.ProfileList;

@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.glpi.R;
-import com.example.glpi.api.get.Ticket;
+import com.example.glpi.api.modelos.Ticket;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
 import com.example.glpi.api.modelos.DocumentItem;
 import com.example.glpi.api.modelos.ProfileData;

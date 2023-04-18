@@ -1,6 +1,5 @@
 package com.example.glpi.api.modelos;
 
-import com.example.glpi.api.get.Ticket;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

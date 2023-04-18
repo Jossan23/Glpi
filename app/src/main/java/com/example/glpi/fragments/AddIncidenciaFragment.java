@@ -74,8 +74,6 @@ public class AddIncidenciaFragment extends Fragment {
         autoCompleteTextViewType.setAdapter(adapterType);
 
 
-
-
         autoCompleteTextViewUrgency.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -97,15 +95,15 @@ public class AddIncidenciaFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if(editTextTituloIncidencia.getText().toString().isEmpty()){
-
+                if(autoCompleteTextViewType.getText().toString().isEmpty()){
+                    Toast.makeText(context, "Introduce el tipo de ticket", Toast.LENGTH_SHORT).show();
+                }else if(editTextTituloIncidencia.getText().toString().isEmpty()){
                     Toast.makeText(context, "Introduce un titulo", Toast.LENGTH_SHORT).show();
                 }else if(editTextDescripcionIncidencia.getText().toString().isEmpty()){
                     Toast.makeText(context, "Introduce una descripcion", Toast.LENGTH_SHORT).show();
                 }else if(autoCompleteTextViewUrgency.getText().toString().isEmpty()){
                     Toast.makeText(context, "Introduce la urgencia", Toast.LENGTH_SHORT).show();
-                }else if(autoCompleteTextViewUrgency.getText().toString().isEmpty()){
-                    Toast.makeText(context, "Introduce el tipo de ticket", Toast.LENGTH_SHORT).show();
+
                 }else{
                     glpiQuerys.setTicket(context,authToken,editTextTituloIncidencia.getText().toString(),editTextDescripcionIncidencia.getText().toString(),1,urgencia,tipo);
 

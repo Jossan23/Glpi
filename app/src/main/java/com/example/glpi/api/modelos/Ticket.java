@@ -1,4 +1,4 @@
-package com.example.glpi.api.get;
+package com.example.glpi.api.modelos;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
