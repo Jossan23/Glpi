@@ -5,8 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
+
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,15 +24,12 @@ import com.example.glpi.api.get.Ticket;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
 import com.example.glpi.api.modelos.DocumentItem;
 import com.example.glpi.api.modelos.ProfileData;
-import com.example.glpi.api.modelos.TicketList;
 import com.example.glpi.api.persistencia.GlpiQuerys;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -86,7 +82,6 @@ public class DetailViewFragment extends Fragment {
         authToken = getArguments().getString("authToken");
         context = getActivity();
 
-        getTicketUser();
         //System.out.println(ticket.getId() + "asdasdasd");
 
         textViewUserDetail = view.findViewById(R.id.textViewUserDetail);
@@ -100,7 +95,7 @@ public class DetailViewFragment extends Fragment {
 
         autoCompleteStatusDetail = view.findViewById(R.id.autoCompleteStatusDetail);
 
-
+        getTicketUser();
         getTicketImage();
 
         textViewNameDetail.setText(ticket.getName());
@@ -145,7 +140,7 @@ public class DetailViewFragment extends Fragment {
 
             case 2:
                 textViewUrgencyDetail.setText("Urgencia: Poco urgente");
-                textViewUrgencyDetail.setTextColor(Color.rgb(0,255,0));
+                textViewUrgencyDetail.setTextColor(Color.rgb(0,205,0));
                 break;
             case 3:
                 textViewUrgencyDetail.setText("Urgencia: Urgencia media");
@@ -153,7 +148,7 @@ public class DetailViewFragment extends Fragment {
                 break;
             case 4:
                 textViewUrgencyDetail.setText("Urgencia: Urgente");
-                textViewUrgencyDetail.setTextColor(Color.rgb(200,0,0));
+                textViewUrgencyDetail.setTextColor(Color.rgb(180,0,0));
                 break;
             case 5:
                 textViewUrgencyDetail.setText("Urgencia: Muy urgente");
@@ -262,6 +257,10 @@ public class DetailViewFragment extends Fragment {
             }
         });
     }
+
+
+
+
 
     /*
     public void updateTicketData(Context context, String authToken,int id, int urgency, int status){

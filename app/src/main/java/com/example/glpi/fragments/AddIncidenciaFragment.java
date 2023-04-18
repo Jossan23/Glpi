@@ -3,7 +3,6 @@ package com.example.glpi.fragments;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -17,51 +16,32 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.glpi.R;
-import com.example.glpi.api.get.Ticket;
-import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
-import com.example.glpi.api.modelos.TicketList;
+
 import com.example.glpi.api.persistencia.GlpiQuerys;
-import com.example.glpi.api.persistencia.RetroFitSingleton;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 
 public class AddIncidenciaFragment extends Fragment {
 
-    private final Retrofit retrofit = RetroFitSingleton.getInstance().getRetroFit();
-    private final JsonPlaceHolderApi querys = retrofit.create(JsonPlaceHolderApi.class);
     private String authToken;
 
-    String[] urgency = {"Muy poco urgente", "Poco urgente", "Urgencia media","Urgencia alta", "Muy urgente"};
-    AutoCompleteTextView autoCompleteTextViewUrgency;
-    ArrayAdapter<String> adapterUrgency;
-    Button buttonAddIncidencia;
+    private final String[] urgency = {"Muy poco urgente", "Poco urgente", "Urgencia media","Urgencia alta", "Muy urgente"};
+    private AutoCompleteTextView autoCompleteTextViewUrgency;
+    private ArrayAdapter<String> adapterUrgency;
+    private Button buttonAddIncidencia;
     private EditText editTextTituloIncidencia, editTextDescripcionIncidencia;
-    int urgencia;
-    int tipo;
-    Context context;
+    private int urgencia;
+    private int tipo;
+    private Context context;
 
-    String[] type ={"Incidencia", "Solicitud"};
+    private final String[] type ={"Incidencia", "Solicitud"};
 
-    AutoCompleteTextView autoCompleteTextViewType;
-    ArrayAdapter<String> adapterType;
+    private AutoCompleteTextView autoCompleteTextViewType;
+    private ArrayAdapter<String> adapterType;
     private GlpiQuerys glpiQuerys = new GlpiQuerys();
 
 
     public AddIncidenciaFragment() {
         // Requiere un constructor vacío
-    }
-
-    public static AddIncidenciaFragment newInstance() {
-        AddIncidenciaFragment fragment = new AddIncidenciaFragment();
-        return fragment;
     }
 
     @Override
@@ -77,9 +57,9 @@ public class AddIncidenciaFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_add_incidencia, container, false);
+
         context = getActivity();
         authToken = getArguments().getString("session_token");
-        //System.out.println(authToken + "esta en el fragment de crear incidencia");
 
         editTextTituloIncidencia = view.findViewById(R.id.editTextTituloIncidencia);
         editTextDescripcionIncidencia = view.findViewById(R.id.editTextDescripcionIncidencia);

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.glpi.api.get.InitSession;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
 import com.example.glpi.api.modelos.ProfileList;
+import com.example.glpi.api.persistencia.GlpiQuerys;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
 
 import java.io.IOException;
@@ -36,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextPassword;
     private Button botonLogin;
     private Context _context;
+    private GlpiQuerys glpiQuerys = new GlpiQuerys();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +63,14 @@ public class LoginActivity extends AppCompatActivity {
 
                     Toast.makeText(_context, "Introduce tu usuario y contraseña", Toast.LENGTH_SHORT).show();
                 }else{
-                    autenticarUsuario(editTextUsuario.getText().toString(),editTextPassword.getText().toString());
+                    glpiQuerys.autenticarUsuario(_context,editTextUsuario.getText().toString(),editTextPassword.getText().toString());
                 }
 
             }
         });
     }
 
+    /*
     public String autenticarUsuario(String username, String password){
 
         String base = username + ":" + password;
@@ -115,31 +119,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void getActiveProfile(){
+     */
 
-        Call<ProfileList> profileCall = querys.getActiveProfile("vhcftl8trmo0hhbmiis31mi39p");
 
-        profileCall.enqueue(new Callback<ProfileList>() {
-            @Override
-            public void onResponse(Call<ProfileList> call, Response<ProfileList> response) {
-                if(response.isSuccessful()){
-
-                    System.out.println(response.body().getData().getName());
-
-                }else{
-                    try {
-                        System.out.println(response.errorBody().string());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ProfileList> call, Throwable t) {
-                System.out.println(t.getMessage());
-            }
-        });
-    }
 
 }

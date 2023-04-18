@@ -1,7 +1,6 @@
 package com.example.glpi.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,11 +8,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +20,12 @@ import com.example.glpi.adapters.ListViewAdapter;
 import com.example.glpi.api.get.Ticket;
 import com.example.glpi.api.interfaces.DetailTicketsInterface;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
-import com.example.glpi.api.modelos.ProfileList;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
 
 import java.io.IOException;
-import java.io.Serializable;
+
 import java.util.List;
 
-import kotlinx.coroutines.scheduling.TasksKt;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
