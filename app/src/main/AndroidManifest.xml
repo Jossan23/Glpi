@@ -19,7 +19,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden"
+            android:windowSoftInputMode="adjustPan"
+
             >
         </activity>
 

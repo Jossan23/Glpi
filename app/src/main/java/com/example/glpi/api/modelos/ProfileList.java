@@ -3,10 +3,9 @@ package com.example.glpi.api.modelos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class ProfileList {
 
+    //Clase para obtener los datos del perfil que esta actualmente iniciando sesion.
     @SerializedName("active_profile")
     @Expose
     private ProfileData data;
@@ -14,6 +13,5 @@ public class ProfileList {
     public ProfileList(ProfileData data) {
         this.data = data;
     }
-
 
 }

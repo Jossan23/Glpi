@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProfileData {
 
+    //Modelo para obtener el nombre del perfil que ha creado el ticket.
     @SerializedName("name")
     @Expose
     private String name;

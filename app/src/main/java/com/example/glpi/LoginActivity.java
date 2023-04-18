@@ -3,31 +3,24 @@ package com.example.glpi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.glpi.api.get.InitSession;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
-import com.example.glpi.api.modelos.ProfileList;
 import com.example.glpi.api.persistencia.GlpiQuerys;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
 
-import java.io.IOException;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
 
 
-    private String authToken;
+    //Login Activity que permite la autenticación de usuarios en Glpi. Hace la consulta, si es satisfactoria
+    //se pasa a la siguiente Actividad, si no, se notifica al usuario de que el usuario y la contraseña
+    //no son correctos.
 
     private final Retrofit retrofit = RetroFitSingleton.getInstance().getRetroFit();
 
@@ -52,9 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         botonLogin = findViewById(R.id.botonLogin);
 
 
-        //autenticarUsuario("glpi","glpi");
-
-
+        //Si el usuario pulsa en el botón de Login, se inicia el proceso de autenticación.
         botonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     glpiQuerys.autenticarUsuario(_context,editTextUsuario.getText().toString(),editTextPassword.getText().toString());
                 }
-
             }
         });
     }

@@ -9,34 +9,26 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.glpi.api.get.Ticket;
-import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
-import com.example.glpi.api.persistencia.RetroFitSingleton;
+
 import com.example.glpi.databinding.ActivityMainBinding;
 import com.example.glpi.fragments.AddIncidenciaFragment;
 import com.example.glpi.fragments.ViewIncidenciaFragment;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-
 public class MainActivity extends AppCompatActivity {
+
+    //Esta actividad es la encargada de manejar los diferentes fragmentos.
+    //Cuando el usuario pulsa en la barra inferior de la pantalla, se cambia el fragmento.
+    //También se pasa el token de sesion necesario para hacer las consultas a traves de
+    //los diferentes fragmentos.
+
+
 
     private ActivityMainBinding binding;
     private Context _context;
     private AddIncidenciaFragment fragmentoIncidencia;
     private ViewIncidenciaFragment fragmentoView;
     private String authKey;
-    private List<Ticket> ticketList;
     Bundle extraFragment;
-    private final Retrofit retrofit = RetroFitSingleton.getInstance().getRetroFit();
-
-    private final JsonPlaceHolderApi querys = retrofit.create(JsonPlaceHolderApi.class);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,15 +51,20 @@ public class MainActivity extends AppCompatActivity {
         extraFragment = new Bundle();
         extraFragment.putString("session_token", authKey);
 
+
+        //Por defecto se abre el fragmento de Añadir Ticket
         fragmentoIncidencia = new AddIncidenciaFragment();
         fragmentoIncidencia.setArguments(extraFragment);
         changeFragment(fragmentoIncidencia);
+
+        //Dependiendo de si el usuario quiere añadir o ver los tickets,la aplicación
+        // detecta el cambio y dependendiendo del botón se cambia al fragmento necesario.
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             switch(item.getItemId()){
 
-                case R.id.crearIncidenciaMenu:
+                case (R.id.crearIncidenciaMenu):
                     extraFragment = new Bundle();
                     extraFragment.putString("session_token", authKey);
 
@@ -78,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
 
-                case R.id.verIncidenciasMenu:
+                case (R.id.verIncidenciasMenu):
+                    //Fragmento incidencias. En este, se listan todas las incidencias
                     extraFragment = new Bundle();
                     extraFragment.putString("session_token", authKey);
 
@@ -93,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    //Método que se usa para cambiar de fragmento.
     private void changeFragment(Fragment fragment){
 
         FragmentManager fragmentManager = getSupportFragmentManager();

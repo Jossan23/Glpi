@@ -4,23 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.glpi.LoginActivity;
 import com.example.glpi.MainActivity;
 import com.example.glpi.R;
-import com.example.glpi.api.get.InitSession;
-import com.example.glpi.api.get.Ticket;
+import com.example.glpi.api.modelos.InitSession;
+import com.example.glpi.api.modelos.Ticket;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
-import com.example.glpi.api.modelos.ProfileData;
 import com.example.glpi.api.modelos.TicketList;
-import com.example.glpi.fragments.DetailViewFragment;
 import com.example.glpi.fragments.ViewIncidenciaFragment;
 
 import java.io.IOException;
@@ -35,14 +30,13 @@ import retrofit2.Retrofit;
 
 public class GlpiQuerys {
 
-
+    //Clase donde se guardan las consultas para añadir tickets, actualizar los tickets, borrar el ticket
+    // y autenticar usuario.
     private final Retrofit retrofit = RetroFitSingleton.getInstance().getRetroFit();
     private final JsonPlaceHolderApi querys = retrofit.create(JsonPlaceHolderApi.class);
     private String authToken;
-    private String getUserAssignedToTicket;
 
     public void setTicket(Context context, String authToken, String titulo, String descripcion, int status, int urgencia, int tipo){
-
 
         Ticket ticket = new Ticket(titulo,descripcion,status,urgencia,tipo);
         List<Ticket> ticketList= new ArrayList<Ticket>();
@@ -77,7 +71,7 @@ public class GlpiQuerys {
             @Override
             public void onFailure(Call<List<Ticket>> call, Throwable t) {
 
-                Toast.makeText(context, "Ha ocurrido un error al cargar todos los datos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Ha ocurrido un error al crear el ticket", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -101,6 +95,7 @@ public class GlpiQuerys {
                     System.out.println(response.code());
                 }else{
                     try {
+                        Toast.makeText(context, "Error al actualizar el ticket", Toast.LENGTH_SHORT).show();
                         System.out.println(response.errorBody().string());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -112,6 +107,8 @@ public class GlpiQuerys {
             @Override
             public void onFailure(Call<List> call, Throwable t) {
                 System.out.println(t.getMessage());
+                Toast.makeText(context, "Error de conexión", Toast.LENGTH_SHORT).show();
+
 
             }
         });
@@ -151,6 +148,7 @@ public class GlpiQuerys {
                     }
                 }else{
                     try {
+                        Toast.makeText(context, "Error al borrar el ticket", Toast.LENGTH_SHORT).show();
                         System.out.println(response.errorBody().string());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -161,6 +159,7 @@ public class GlpiQuerys {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(context, "Error de conexión", Toast.LENGTH_SHORT).show();
                 System.out.println(t.getMessage());
 
             }
@@ -189,7 +188,6 @@ public class GlpiQuerys {
                     intent.putExtra("session_token", authToken);
                     context.startActivity(intent);
 
-                    //System.out.println("Biennn");
                 }else{
                     String errorMessage;
                     try {
@@ -198,7 +196,6 @@ public class GlpiQuerys {
                         Toast.makeText(context, "Compruebe credenciales", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         System.out.println(e);
-                        System.out.println("MAL");
                     }
                 }
             }

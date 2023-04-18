@@ -3,10 +3,11 @@ package com.example.glpi.api.persistencia;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.HTTP;
+
 
 public class RetroFitSingleton {
 
+    //Singleton(instancia única) con la url de conexión para conectarse con el API REST de GLPI.
     private static RetroFitSingleton instance;
     private Retrofit retroFitInstance;
 

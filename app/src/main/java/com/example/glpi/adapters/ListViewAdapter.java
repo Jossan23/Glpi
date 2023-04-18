@@ -12,17 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.glpi.R;
-import com.example.glpi.api.get.Ticket;
+import com.example.glpi.api.modelos.Ticket;
 import com.example.glpi.api.interfaces.DetailTicketsInterface;
 
 import java.util.List;
 
 public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHolder> {
 
+    //Adaptador del fragmento ViewIncidenciaFragment que extiende de RecyclerView.
+    //Se encarga de mostar los elementos de la interfaz en el recyclerview y asignarle 
+    // los valores correspondientes.
+
     private List<Ticket> ticketList;
-    private Context context;
-    private int stateNumber;
-    private int urgencyNumber;
+    private final Context context;
     private final DetailTicketsInterface detailTicketsInterface;
 
     public ListViewAdapter(Context context, List<Ticket> ticketList,DetailTicketsInterface detailTicketsInterface) {
@@ -45,7 +47,7 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ListViewAdapter.ViewHolder holder, int position) {
 
-        urgencyNumber = ticketList.get(position).getUrgency();
+        int urgencyNumber = ticketList.get(position).getUrgency();
 
         holder.textViewUrgency.setText(String.valueOf(urgencyNumber));
 
@@ -71,7 +73,7 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
 
         //holder.textViewState.setText(String.valueOf(ticketList.get(position).getStatus()));
 
-        stateNumber = ticketList.get(position).getStatus();
+        int stateNumber = ticketList.get(position).getStatus();
 
 
         switch(stateNumber){
@@ -104,6 +106,12 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
         return ticketList.size();
     }
 
+    //Método adicional que asigna la lista que se pasa cómo parámetro
+    // a la lista de tickets de este adaptador. Esto es implementado de esta
+    //  manera ya que java, al no tener una manera eficiente de manejar las
+    //  consultas asincronas, se crea este método y cuándo ya tengo el resultado
+    //  lo llamo y establezco el valor.
+
     public void setData(@NonNull List<Ticket> listOfTickets){
         if(listOfTickets.size() > 0) {
             ticketList = listOfTickets;
@@ -112,7 +120,6 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
         TextView textViewState,textViewIncidenciaContent,textViewIncidenciaName,textViewUrgency;
 
         public ViewHolder(@NonNull View itemView, DetailTicketsInterface detailTicketsInterface) {
@@ -137,5 +144,4 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.ViewHo
             });
         }
     }
-
 }

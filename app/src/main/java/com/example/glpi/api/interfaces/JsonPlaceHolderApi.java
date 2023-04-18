@@ -1,7 +1,7 @@
 package com.example.glpi.api.interfaces;
 
-import com.example.glpi.api.get.InitSession;
-import com.example.glpi.api.get.Ticket;
+import com.example.glpi.api.modelos.InitSession;
+import com.example.glpi.api.modelos.Ticket;
 import com.example.glpi.api.modelos.DocumentItem;
 import com.example.glpi.api.modelos.ProfileData;
 import com.example.glpi.api.modelos.ProfileList;
@@ -22,6 +22,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface JsonPlaceHolderApi {
+
+    //Interfaz que se encarga de realizar las consultas para listar, añadir, borrar, obtener o modificar
+    //información en la aplicación Android mediante la librería Retrofit2.
 
     @Headers("Content-Type: application/json")
     @GET("initSession")

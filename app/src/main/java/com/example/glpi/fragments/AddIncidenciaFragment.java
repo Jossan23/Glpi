@@ -22,6 +22,7 @@ import com.example.glpi.api.persistencia.GlpiQuerys;
 
 public class AddIncidenciaFragment extends Fragment {
 
+    //Fragmento dónde se añaden las incidencias.
     private String authToken;
 
     private final String[] urgency = {"Muy poco urgente", "Poco urgente", "Urgencia media","Urgencia alta", "Muy urgente"};
@@ -40,6 +41,7 @@ public class AddIncidenciaFragment extends Fragment {
     private GlpiQuerys glpiQuerys = new GlpiQuerys();
 
 
+    //Métodos necesarios de Android
     public AddIncidenciaFragment() {
         // Requiere un constructor vacío
     }
@@ -58,6 +60,8 @@ public class AddIncidenciaFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_add_incidencia, container, false);
 
+        //Se pasa el token de sesión al nuevo fragmento y se asignan los valores de los elementos
+        // de la interfaz.
         context = getActivity();
         authToken = getArguments().getString("session_token");
 
@@ -74,7 +78,10 @@ public class AddIncidenciaFragment extends Fragment {
         autoCompleteTextViewType.setAdapter(adapterType);
 
 
-
+        //Si el usuario pincha en el seleccionable de la urgencia se abre un desplegable.
+        //Dependiendo dónde pinche, me actualiza la urgencia al valor correspondiente.
+        //El +1 es porque si pincho en la primera posición el programa establece que es un 0
+        // y en GLPI empieza desde el 1.
 
         autoCompleteTextViewUrgency.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -84,6 +91,7 @@ public class AddIncidenciaFragment extends Fragment {
             }
         });
 
+        //Otro desplegable cómo el primero que tiene la misma funcionalidad.
         autoCompleteTextViewType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -93,19 +101,25 @@ public class AddIncidenciaFragment extends Fragment {
         });
 
 
+
+        //Boton que se encarga de añadir la incidencia. Si los campos están en blanco no deja
+        // añadir la incidencia. Si todos los campos están rellenados se obtiene el valor de todos
+        //los campos, se llama al método setTickets de la interfaz JsonPlaceHolderApi
+        //y se añade el ticket.
+
         buttonAddIncidencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(editTextTituloIncidencia.getText().toString().isEmpty()){
-
+                if(autoCompleteTextViewType.getText().toString().isEmpty()){
+                    Toast.makeText(context, "Introduce el tipo de ticket", Toast.LENGTH_SHORT).show();
+                }else if(editTextTituloIncidencia.getText().toString().isEmpty()){
                     Toast.makeText(context, "Introduce un titulo", Toast.LENGTH_SHORT).show();
                 }else if(editTextDescripcionIncidencia.getText().toString().isEmpty()){
                     Toast.makeText(context, "Introduce una descripcion", Toast.LENGTH_SHORT).show();
                 }else if(autoCompleteTextViewUrgency.getText().toString().isEmpty()){
                     Toast.makeText(context, "Introduce la urgencia", Toast.LENGTH_SHORT).show();
-                }else if(autoCompleteTextViewUrgency.getText().toString().isEmpty()){
-                    Toast.makeText(context, "Introduce el tipo de ticket", Toast.LENGTH_SHORT).show();
+
                 }else{
                     glpiQuerys.setTicket(context,authToken,editTextTituloIncidencia.getText().toString(),editTextDescripcionIncidencia.getText().toString(),1,urgencia,tipo);
 
@@ -115,51 +129,4 @@ public class AddIncidenciaFragment extends Fragment {
 
         return view;
     }
-
-
-    /*
-    public void setTicket(){
-
-
-        Ticket ticket = new Ticket(editTextTituloIncidencia.getText().toString(),editTextDescripcionIncidencia.getText().toString(),1,urgencia,tipo);
-        List<Ticket> ticketList= new ArrayList<Ticket>();
-        ticketList.add(ticket);
-        TicketList ticketListClass = new TicketList(ticketList);
-
-        Call<List<Ticket>> tickets = querys.setTicket(ticketListClass,authToken);
-
-        tickets.enqueue(new Callback<List<Ticket>>() {
-            @Override
-            public void onResponse(Call<List<Ticket>> call, Response<List<Ticket>> response) {
-
-                if(response.isSuccessful()){
-
-                    Toast.makeText(context, "Ticket creado satisfactoriamente", Toast.LENGTH_LONG).show();
-                    System.out.println("Sucessful");
-                    //Ticket ticket = response.body();
-                    //System.out.println(ticket.getName());
-
-
-                }else{
-                    try {
-                        System.out.println(response.errorBody().string());
-                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Ticket>> call, Throwable t) {
-
-                Toast.makeText(context, "Ha ocurrido un error al cargar todos los datos", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
-     */
-
 }

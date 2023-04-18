@@ -1,4 +1,4 @@
-package com.example.glpi.api.get;
+package com.example.glpi.api.modelos;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class Ticket implements Serializable {
+
+    //Modelo Ticket con los atributos necesarios, su constructor y sus getters y setters.
+
     @SerializedName("id")
     @Expose
     public int id;

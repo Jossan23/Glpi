@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.glpi.R;
 import com.example.glpi.adapters.ListViewAdapter;
-import com.example.glpi.api.get.Ticket;
+import com.example.glpi.api.modelos.Ticket;
 import com.example.glpi.api.interfaces.DetailTicketsInterface;
 import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
 import com.example.glpi.api.persistencia.RetroFitSingleton;
@@ -34,6 +35,8 @@ import retrofit2.Retrofit;
 
 public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInterface {
 
+
+    //Fragmento donde se ven las incidencias
     private final Retrofit retrofit = RetroFitSingleton.getInstance().getRetroFit();
 
     private final JsonPlaceHolderApi querys = retrofit.create(JsonPlaceHolderApi.class);
@@ -45,6 +48,7 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
     private RecyclerView recycView;
 
 
+    //Métodos internos de Android para mostrar el fragmento.
     public ViewIncidenciaFragment() {
         // Requiere un constructor vacío
     }
@@ -59,32 +63,34 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+        //Coge los argumentos pasados. En este caso, el token de sesión.
 
         authKey = getArguments().getString("session_token");
-        //System.out.println(authKey + "esta en un fragment");
-
         view = inflater.inflate(R.layout.fragment_view_incidencia,container,false);
-
         return view;
 
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //Se asignan los elementos necesarios de la vista y se les da valor.
         super.onViewCreated(view, savedInstanceState);
         context = getActivity();
         recycView = view.findViewById(R.id.recyclerView);
         recycView.setLayoutManager(new LinearLayoutManager(context));
         adapter = new ListViewAdapter(context , ticketList, this);
         recycView.setAdapter(adapter);
+        //Lamada al metodo que permite coger los tickets y listarlos
         getTicket();
     }
 
 
     public void getTicket(){
 
-        //System.out.println(authToken + "este es mi token");
+
+        //Este método asíncrono llama a la interfaz query y se le pasa
+        // el token de sesión como parámetro.
 
         Call<List<Ticket>> tickets = querys.getTicket(authKey);
 
@@ -93,27 +99,18 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
             public void onResponse(Call<List<Ticket>> call, Response<List<Ticket>> response) {
 
                 if(response.isSuccessful()){
+                    //Si la respuesta es satisfactoria, se coge la lista de tickets y se le pasa
+                    //al adaptador para que vaya mostrando los tickets mediante el método setData()
                     ticketList = response.body();
                     adapter.setData(ticketList);
-
-                    /*
-                    for(Ticket t : ticketList){
-
-                        System.out.println(t.getId());
-                        System.out.println(t.getName());
-                        System.out.println(t.getContent());
-                        System.out.println(t.getStatus());
-                        System.out.println(t.getUserCreatorTicker());
-                        System.out.println(t.getUrgency());
-
-                    }
-
-                     */
 
                     System.out.println("he terminado");
 
                 }else{
+                    //Si no, se le comunica al usuario que ha habido un error al obtener los
+                    //tickets en GLPI
                     try {
+                        Toast.makeText(context, "Error al obtener los datos de GLPI", Toast.LENGTH_SHORT).show();
                         System.out.println(response.errorBody().string() + "b,kjasbd,fkjbasdhfb");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -123,12 +120,21 @@ public class ViewIncidenciaFragment extends Fragment implements DetailTicketsInt
 
             @Override
             public void onFailure(Call<List<Ticket>> call, Throwable t) {
+                //Si no se puede conectar, se comunica un error de conexión
+                Toast.makeText(context, "Error de conexión", Toast.LENGTH_SHORT).show();
                 System.out.println(t.getMessage());
 
             }
         });
     }
 
+
+
+    //Este método coge la posicion en la que el usuario hace click y se pasa al fragmento detalle
+    //El fragmento detalle es dónde se muestran los detalles técnicos de los tickets creados
+    //por los usuarios. Dependiendo de la posición se sabe dónde está pinchando el usuario,
+    //por lo que, se le pasa al fragmento detalle los detalles del ticket
+    // obteniendo el ticket de la posición de la lista en la que el usuario ha pinchado.
 
     @Override
     public void onItemClick(int position) {
