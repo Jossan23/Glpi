@@ -161,7 +161,6 @@ public class DetailViewFragment extends Fragment {
                 break;
         }
 
-
         //Desplegable que muestra el estado del ticket. También sirve para modificar
         // el estado del ticket
 
@@ -176,9 +175,9 @@ public class DetailViewFragment extends Fragment {
             }
         });
 
-
         //Si se presiona el botón de actualizar se llama a la consulta para que actualice el valor
         //del ticket
+
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -213,12 +212,16 @@ public class DetailViewFragment extends Fragment {
             public void onResponse(Call<List<DocumentItem>> call, Response<List<DocumentItem>> response) {
                 if(response.isSuccessful()){
                     if (response.body().isEmpty()){
+                        /*
                         Glide.with(context)
                                 .load("http://192.168.1.22/apirest.php/Document/" + documentId + "?session_token=" + authToken + "&alt=media")
                                 .placeholder(android.R.drawable.progress_indeterminate_horizontal)
                                 .error(R.mipmap.glpi)
                                 .into(imageViewDetail);
-                        Toast.makeText(context, "No se ha encontrado una imagen", Toast.LENGTH_SHORT).show();
+
+                         */
+
+                        //Toast.makeText(context, "No se ha encontrado una imagen", Toast.LENGTH_SHORT).show();
                     }else{
                         documentId = response.body().get(0).getId();
 
