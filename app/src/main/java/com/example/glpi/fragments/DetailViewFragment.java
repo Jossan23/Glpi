@@ -58,7 +58,7 @@ public class DetailViewFragment extends Fragment {
     private String[] statusDetail = {"Nuevo", "En curso(asignada)", "En curso (planificada)","En espera","Resuelto", "Cerrado"};
     private ImageView imageViewDetail;
     private int documentId;
-    private GlpiQuerys glpiQuerys = new GlpiQuerys();
+    private final GlpiQuerys glpiQuerys = new GlpiQuerys();
 
 
     public DetailViewFragment() {
@@ -221,7 +221,7 @@ public class DetailViewFragment extends Fragment {
 
                          */
 
-                        //Toast.makeText(context, "No se ha encontrado una imagen", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Sin imagen", Toast.LENGTH_SHORT).show();
                     }else{
                         documentId = response.body().get(0).getId();
 

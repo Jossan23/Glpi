@@ -8,7 +8,7 @@ public class ProfileList {
     //Clase para obtener los datos del perfil que esta actualmente iniciando sesion.
     @SerializedName("active_profile")
     @Expose
-    private ProfileData data;
+    public ProfileData data;
 
     public ProfileList(ProfileData data) {
         this.data = data;

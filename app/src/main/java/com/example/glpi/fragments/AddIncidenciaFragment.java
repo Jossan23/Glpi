@@ -24,7 +24,6 @@ public class AddIncidenciaFragment extends Fragment {
 
     //Fragmento dónde se añaden las incidencias.
     private String authToken;
-
     private final String[] urgency = {"Muy poco urgente", "Poco urgente", "Urgencia media","Urgencia alta", "Muy urgente"};
     private AutoCompleteTextView autoCompleteTextViewUrgency;
     private ArrayAdapter<String> adapterUrgency;
@@ -38,7 +37,7 @@ public class AddIncidenciaFragment extends Fragment {
 
     private AutoCompleteTextView autoCompleteTextViewType;
     private ArrayAdapter<String> adapterType;
-    private GlpiQuerys glpiQuerys = new GlpiQuerys();
+    private final GlpiQuerys glpiQuerys = new GlpiQuerys();
 
 
     //Métodos necesarios de Android
@@ -49,8 +48,6 @@ public class AddIncidenciaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -126,7 +123,6 @@ public class AddIncidenciaFragment extends Fragment {
                 }
             }
         });
-
         return view;
     }
 }

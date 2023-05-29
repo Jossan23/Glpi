@@ -9,11 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.glpi.api.interfaces.JsonPlaceHolderApi;
 import com.example.glpi.api.persistencia.GlpiQuerys;
-import com.example.glpi.api.persistencia.RetroFitSingleton;
 
-import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,16 +19,15 @@ public class LoginActivity extends AppCompatActivity {
     //se pasa a la siguiente Actividad, si no, se notifica al usuario de que el usuario y la contraseña
     //no son correctos.
 
-    private final Retrofit retrofit = RetroFitSingleton.getInstance().getRetroFit();
-
-    private final JsonPlaceHolderApi querys = retrofit.create(JsonPlaceHolderApi.class);
-
     private EditText editTextUsuario;
     private EditText editTextPassword;
     private Button botonLogin;
     private Context _context;
-    private GlpiQuerys glpiQuerys = new GlpiQuerys();
+    private final GlpiQuerys glpiQuerys = new GlpiQuerys();
 
+
+    //Si tienes un app token habilitado, debes deshabilitarlo, de lo contrario,
+    //no va a funcionar la autenticación.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -11,7 +11,7 @@ public class TicketList implements Serializable {
     // necesario para añadir el ticket en GLPI.
     @SerializedName("input")
     @Expose
-    private List<Ticket> data;
+    public List<Ticket> data;
 
     public TicketList(List<Ticket> data) {
         this.data = data;
